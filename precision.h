@@ -1,18 +1,27 @@
-#pragma once
+#ifndef PRECISION_H_INCLUDED
+#define PRECISION_H_INCLUDED
 
-// Il comportamento stantard è usare i float
-#ifdef USE_DOUBLE
 
-	#define REAL		double
-	#define sqrt(x)		sqrt(x)
-	#define pow(x, y)	pow(x, y)
-	#define exp(x)		exp(x)
+// il comportamento standard è usare i double
 
-#else
 
-	#define REAL		float
+#if defined(USE_DOUBLE)
+
+	#define Real		double
+	#define eps		0.00000000001
+	#define print(x) 	printf("%.3f", x)
+
+#elif defined(USE_FLOAT)
+
+	#define Real		float
+	#define eps		0.00001
+	#define print(x)	printf("%.3f", x)
+
 	#define sqrt(x)		sqrtf(x)
 	#define pow(x, y)	powf(x, y)
 	#define exp(x)		expf(x)
+
+#endif
+
 
 #endif
