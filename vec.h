@@ -2,10 +2,8 @@
 #define VEC_H_INCLUDED
 
 
+#include <alloca.h>
 #include "precision.h"
-
-
-#define makevec(name, elem) Real name##__LINE__[elem]; struct Vector name = (struct Vector){elem, name##__LINE__}
 
 
 #define create_vec(N) ({                              \
@@ -18,6 +16,7 @@ struct Vector{
     unsigned int elem;
     Real *data;
 };
+
 
 #include "mat.h"
 

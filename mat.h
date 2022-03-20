@@ -2,17 +2,14 @@
 #define MAT_H_INCLUDED
 
 
+#include <alloca.h>
 #include "precision.h"
 #include "vec.h"
-#include <alloca.h>
 
 
-#define makemat(name, rows, cols) Real name##__LINE__[rows * cols]; struct Matrix name = (struct Matrix){rows, cols, name##__LINE__}
-
-
-#define create_mat(N, M) ({                                     \
-    unsigned int _n_ = (N), _m_ = (M);                          \
-    (struct Matrix){_n_, _m_, alloca(sizeof(Real) * _n_ * _m_)}; \
+#define create_mat(N, M) ({                                     	\
+	unsigned int _n_ = (N), _m_ = (M);                          	\
+	(struct Matrix){_n_, _m_, alloca(sizeof(Real) * _n_ * _m_)}; 	\
 })
 
 

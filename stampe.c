@@ -45,3 +45,20 @@ void print_for_term(struct Matrix A, const char *label){
 
     putchar('\n');
 }
+
+
+void print_solution(Real t, struct Vector V){
+	assert(V.data != NULL);
+
+	print(t);
+	
+	unsigned int i = 0;
+	do{
+		putchar('\t');
+		print(V.data[i]);
+
+		++i;
+	} while(i < V.elem);
+
+	putchar('\n');
+}
