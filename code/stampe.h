@@ -9,7 +9,7 @@
 
 void print_for_matlab   (struct Matrix, const char *);
 void print_for_term     (struct Matrix, const char *);
-void print_solution		(Real, struct Vector);
+void print_solution		(Real, struct Matrix);
 
 
 #endif // MAT_STAMPE_H_INCLUDED

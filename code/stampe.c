@@ -1,4 +1,4 @@
-#include "mat_stampe.h"
+#include "stampe.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -47,18 +47,18 @@ void print_for_term(struct Matrix A, const char *label){
 }
 
 
-void print_solution(Real t, struct Vector V){
+void print_solution(Real t, struct Matrix V){
 	assert(V.data != NULL);
 
 	print(t);
-	
+
 	unsigned int i = 0;
 	do{
 		putchar('\t');
 		print(V.data[i]);
 
 		++i;
-	} while(i < V.elem);
+	} while(i < size(V));
 
 	putchar('\n');
 }
