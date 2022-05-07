@@ -1,3 +1,7 @@
+#ifndef MAT_H_INCLUDED
+#define MAT_H_INCLUDED
+
+
 #include "precision.h"
 #include <cmath>
 
@@ -8,10 +12,20 @@ class vec{
 	private:
 		Real cols[N];
 
-	public:
-		vec(Real scalar){
+
+		void set(Real scalar){
 			for(unsigned int i = 0; i < N; ++i)
 				cols[i] = scalar;
+		}
+
+	public:
+		vec(){
+			set(0.0);
+		}
+
+
+		vec(Real r){
+			set(r);
 		}
 
 
@@ -20,9 +34,37 @@ class vec{
 		}
 
 
+		void print_for_term(const char *label = NULL){
+			if(label == NULL)
+				label = "ans";
+
+			printf("%s =\n", label);
+
+			for(unsigned int i = 0; i < N; ++i){
+				printf("\t");
+				print_r(cols[i]);
+			}
+
+			printf("\n\n");
+		}
+
+
 			Real&	operator[](unsigned int idx)		{ return cols[idx]; }
 		const 	Real& 	operator[](unsigned int idx)	const	{ return cols[idx]; }
 };
+
+
+template <unsigned int N>
+void print_solution(Real t, const vec<N> &u){
+	print_r(t);
+
+	for(unsigned int i = 0; i < N; ++i){
+		printf("\t");
+		print_r(u[i]);
+	}
+
+	printf("\n");
+}
 
 
 template <unsigned int N>
@@ -53,6 +95,13 @@ template <unsigned int N>
 void smul(vec<N> &dest, Real scalar, const vec<N> &v){
 	for(unsigned int i = 0; i < N; ++i)
 		dest[i] = scalar * v[i];
+}
+
+
+template <unsigned int N>
+void point_mul(vec<N> &dest, const vec<N> &v, const vec<N> &w){
+	for(unsigned int i = 0; i < N; ++i)
+		dest[i] = v[i] * w[i];
 }
 
 
@@ -98,3 +147,6 @@ void mul(vec<N> &dest, const mat<M, N> &A, const vec<N> &v){
 	for(unsigned int i = 0; i < N; ++i)
 		dest[i] = dot(A[i], v);
 }
+
+
+#endif

@@ -2,6 +2,9 @@
 #define PRECISION_H_INCLUDED
 
 
+#include <cstdio>
+
+
 #if defined(USE_FLOAT)
 
 	#define Real		float
