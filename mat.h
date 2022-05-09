@@ -112,6 +112,11 @@ class mat{
 	
 
 	public:
+		mat(){
+			mat(0.0);
+		}
+
+
 		mat(Real scalar){
 			for(unsigned int i = 0; i < N; ++i)
 				rows[i] = vec<M>(scalar);
