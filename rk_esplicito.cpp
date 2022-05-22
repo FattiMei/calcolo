@@ -6,27 +6,33 @@
 #include "rk_metodi.h"
 
 
-void dati_iniziali(Real *t_0, Real *T, vec<1> &u){
-	*t_0 = 0.0;
-	*T   = 50.0;
+// dimensione del problema
+const unsigned int d = 2;
 
-	u[0] = 0.0;
+
+void dati_iniziali(Real *t_0, Real *T, vec<d> &u){
+	*t_0 = 0.0;
+	*T   = 2.0 * PI;
+
+	u[0] = 1.0;
+	u[1] = 0.0;
 }
 
 
-void effe(vec<1> &dest, Real t, const vec<1> &u){
-	dest[0] = t * exp(-1.0 * (t + u[0]));
+void effe(vec<d> &dest, Real t, const vec<d> &u){
+	dest[0] = u[1];
+	dest[1] = -u[0];
 }
 
 
 int main(int argc, char *argv[]){
 	long N = 1;
 	Real t_0, t, T, h;
-	vec<1> u, deriv;
+	vec<d> u, deriv;
 
 
 	// solo per i metodi di runge kutta devo memorizzare gli stadi
-	mat<s, 1> K;
+	mat<s, d> K;
 
 
 	// da riga di comando prendo il numero di passi
@@ -46,13 +52,13 @@ int main(int argc, char *argv[]){
 
 
 		// calcola il passo successivo
-		vec<1> p_int;
+		vec<d> p_int;
 
 
 		for(unsigned int i = 0; i < s; ++i){
 			// questo è un metodo esplicito, quindi la A è triangolare inferiore con diagonale nulla
 			for(unsigned int j = 0; j < i; ++j){
-				vec<1> tmp;
+				vec<d> tmp;
 				smul(tmp, A[i][j], K[j]);
 				sum(p_int, p_int, tmp);
 			}
@@ -74,9 +80,6 @@ int main(int argc, char *argv[]){
 		smul(deriv, h, deriv);
 		sum(u, u, deriv);
 	}
-
-
-	print_r(norm(u));
 
 
 	return 0;

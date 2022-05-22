@@ -14,8 +14,8 @@ class vec{
 
 
 		void set(Real scalar){
-			for(unsigned int i = 0; i < N; ++i)
-				cols[i] = scalar;
+			for(unsigned int j = 0; j < N; ++j)
+				cols[j] = scalar;
 		}
 
 	public:
@@ -40,9 +40,9 @@ class vec{
 
 			printf("%s =\n", label);
 
-			for(unsigned int i = 0; i < N; ++i){
+			for(unsigned int j = 0; j < N; ++j){
 				printf("\t");
-				print_r(cols[i]);
+				print_r(cols[j]);
 			}
 
 			printf("\n\n");
@@ -51,6 +51,12 @@ class vec{
 
 			Real&	operator[](unsigned int idx)		{ return cols[idx]; }
 		const 	Real& 	operator[](unsigned int idx)	const	{ return cols[idx]; }
+
+
+		void operator=(const vec<N> &rhs){
+			for(unsigned int j = 0; j < N; ++j)
+				cols[j] = rhs[j];
+		}
 };
 
 
@@ -130,6 +136,12 @@ class mat{
 
 			vec<M>&	operator[](unsigned int idx)		{ return rows[idx]; }
 		const 	vec<M>&	operator[](unsigned int idx)	const	{ return rows[idx]; }
+
+
+		void operator=(const mat<N, M> &rhs){
+			for(unsigned int i = 0; i < N; ++i)
+				rows[i] = rhs[i];
+
 };
 
 
@@ -151,6 +163,19 @@ template <unsigned int N, unsigned int M>
 void mul(vec<N> &dest, const mat<M, N> &A, const vec<N> &v){
 	for(unsigned int i = 0; i < N; ++i)
 		dest[i] = dot(A[i], v);
+}
+
+
+template <unsigned int N, unsigned int M>
+Real norm(const mat<N, M> &A){
+	Real result = 0.0;
+
+
+	for(unsigned int i = 0; i < N; ++i)
+		for(unsigned int j = 0; j < M; ++j)
+			result += A[i][j] * A[i][j];
+
+	return sqrt(result);
 }
 
 
